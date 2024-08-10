@@ -1,16 +1,14 @@
-module.exports = function towelSort(matrix) {
-  if (!matrix || matrix.length === 0) {
-    return [];
-  }
+module.exports = function check(str, bracketsConfig) {
+  const stack = [];
+  const bracketsMap = Object.fromEntries(bracketsConfig);
 
-  let result = [];
-
-  for (let i = 0; i < matrix.length; i++) {
-    if (i % 2 === 0) {
-      result = result.concat(matrix[i]);
+  for (let char of str) {
+    if (stack.length && bracketsMap[stack[stack.length - 1]] === char) {
+      stack.pop();
     } else {
-      result = result.concat(matrix[i].reverse());
+      stack.push(char);
     }
   }
-  return result;
+
+  return stack.length === 0;
 }
